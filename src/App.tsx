@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { getCameras } from "./axios/axios"; // Import the getCameras function
 import { CameraTable } from "./components/shared/CameraTable/data-table";
 import { columns, Camera } from "./components/shared/CameraTable/columns";
+// import { RiCloudLine } from "react-icons/ri";
+// import { TbDeviceHeartMonitor } from "react-icons/tb";
+
 
 function App() {
   const [cameraData, setCameraData] = useState<Camera[]>([]);
@@ -26,6 +29,8 @@ function App() {
   useEffect(() => {
     fetchCameraData(); // Fetch data when the component mounts
   }, []);
+
+  console.log(cameraData);
 
   return (
     <div className="min-h-screen">

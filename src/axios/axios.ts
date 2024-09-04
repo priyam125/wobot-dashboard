@@ -9,3 +9,18 @@ export const Axios = axios.create({
 });
 
 export const getCameras = async () => Axios.get("/fetch/cameras");
+
+
+// Utility function to update camera status
+export const updateCameraStatus = async (id: string, status: "Active" | "Inactive") => {
+    try {
+      const response = await Axios.put("/update/camera/status", {
+        id,
+        status,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error updating camera status:", error);
+      throw error;
+    }
+  };
