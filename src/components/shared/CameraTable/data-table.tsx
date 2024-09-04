@@ -1,5 +1,3 @@
-"use client";
-
 import {
   ColumnDef,
   flexRender,
@@ -20,8 +18,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DataTablePagination } from "./CameraTablePagination";
+import { useRecoilValue } from "recoil";
+import { camerasState } from "@/recoil/store";
 
 interface CameraTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -49,6 +49,12 @@ export function CameraTable<TData, TValue>({
     },
   });
 
+  const tableData = useRecoilValue(camerasState);
+
+  useEffect(() => {
+    console.log(tableData);
+  });
+
   return (
     <div>
       <div className="flex items-start justify-between mb-6">
@@ -69,14 +75,6 @@ export function CameraTable<TData, TValue>({
       </div>
       <div className="bg-white rounded-sm">
         <div className="flex items-center py-4">
-          {/* <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("status")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("status")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        /> */}
           <select
             value={
               (table.getColumn("status")?.getFilterValue() as string) ?? ""
@@ -89,7 +87,7 @@ export function CameraTable<TData, TValue>({
 
               table.getColumn("status")?.setFilterValue(event.target.value);
             }}
-            className="bg-white p-2 outline-none border-gray-300 border rounded-md max-w-sm"
+            className="bg-white p-2 outline-none border-gray-300 border rounded-md w-[250px] max-w-md md:ml-4"
           >
             <option value="">All</option>
             <option value="Active">Active</option>

@@ -17,6 +17,8 @@ import { RiCloudLine } from "react-icons/ri";
 import { TbDeviceHeartMonitor } from "react-icons/tb";
 import CustomCell from "../CustomCell";
 import { Axios } from "@/axios/axios";
+import { healthToColor, healthToPercentage } from "@/lib/utils";
+// import { useUpdateCameraStatus } from "@/hooks/useUpdateRecoil";
 
 export type Camera = {
   name: string;
@@ -36,32 +38,6 @@ export type Camera = {
   hasWarning: boolean;
 };
 
-// Function to convert health status to percentage
-const healthToPercentage = (status: "A" | "B" | "C" | "D" | "E" | "F") => {
-  const mapping: { [key: string]: number } = {
-    A: 100,
-    B: 80,
-    C: 60,
-    D: 40,
-    E: 20,
-    F: 0,
-  };
-  return mapping[status] || 0;
-};
-
-// Function to convert health status to color
-const healthToColor = (status: "A" | "B" | "C" | "D" | "E" | "F") => {
-  const mapping: { [key: string]: string } = {
-    A: "#4caf50", // Green
-    B: "#8bc34a", // Light green
-    C: "#ffeb3b", // Yellow
-    D: "#ff9800", // Orange
-    E: "#f44336", // Red
-    F: "#d32f2f", // Dark red
-  };
-  return mapping[status] || "#000";
-};
-
 const onUpdate = async (data: Camera) => {
   const newStatus = data.status === "Active" ? "Inactive" : "Active"; // Toggle the status
 
@@ -72,13 +48,14 @@ const onUpdate = async (data: Camera) => {
       status: newStatus,
     });
 
+    location.reload();
+
     // Successfully updated status; update the local data
     console.log(`Camera ${data._id} status updated to ${newStatus}`);
-    
+
     // Optional: Refresh or update the UI state to reflect the change
     // This part depends on how your state management is set up
     // For example, if you're using React state or context, you would trigger a re-fetch or update the state here
-
   } catch (error) {
     console.error("Failed to update status:", error);
   }
@@ -88,7 +65,7 @@ const onDelete = (data: Camera) => {
   console.log(data);
 };
 
-export const columns: ColumnDef<Camera>[] = [
+export const Columns: ColumnDef<Camera>[] = [
   {
     id: "select",
     header: ({ table }) => (
