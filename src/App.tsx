@@ -2,9 +2,10 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { getCameras } from "./axios/axios"; // Import the getCameras function
 import { CameraTable } from "./components/shared/CameraTable/data-table";
-import { Columns, Camera } from "./components/shared/CameraTable/columns";
+import { Columns } from "./components/shared/CameraTable/columns";
 import { camerasState } from "./recoil/store";
 import { useRecoilState } from "recoil";
+import { Camera } from "./types/camera";
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);

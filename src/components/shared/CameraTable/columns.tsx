@@ -18,25 +18,9 @@ import { TbDeviceHeartMonitor } from "react-icons/tb";
 import CustomCell from "../CustomCell";
 import { Axios } from "@/axios/axios";
 import { healthToColor, healthToPercentage } from "@/lib/utils";
+import { Camera } from "@/types/camera";
 // import { useUpdateCameraStatus } from "@/hooks/useUpdateRecoil";
 
-export type Camera = {
-  name: string;
-  location: string;
-  recorder: string;
-  tasks: string;
-  status: "Inactive" | "Active";
-  _id: string;
-  id: number;
-  current_status: "Online" | "Offline";
-  health: {
-    cloud: "A" | "B" | "C" | "D" | "E" | "F";
-    device: "A" | "B" | "C" | "D" | "E" | "F";
-    _id: string;
-    id: string;
-  };
-  hasWarning: boolean;
-};
 
 const onUpdate = async (data: Camera) => {
   const newStatus = data.status === "Active" ? "Inactive" : "Active"; // Toggle the status
