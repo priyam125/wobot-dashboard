@@ -9,9 +9,7 @@ import CameraTable from "./components/shared/CameraTable/CameraTable";
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const { cameras, setCameras } = React.useContext(
-    CameraContext
-  ) as CameraContextType;
+  const { setCameras } = React.useContext(CameraContext) as CameraContextType;
 
   const fetchCameraData = async () => {
     try {

@@ -53,9 +53,7 @@ export default function CameraTable() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  const { cameras, setCameras } = React.useContext(
-    CameraContext
-  ) as CameraContextType;
+  const { cameras } = React.useContext(CameraContext) as CameraContextType;
 
   const [tableData, setTableData] = React.useState<Camera[]>(cameras);
 
