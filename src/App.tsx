@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { getCameras } from "./axios/axios"; // Import the getCameras function
-import { CameraTable } from "./components/shared/CameraTable/data-table";
-import { Columns } from "./components/shared/CameraTable/columns";
+import { getCameras } from "./axios/axios";
 import { CameraContextType } from "./types/camera";
 import { CameraContext } from "./context/cameraContext";
+import CameraTable from "./components/shared/CameraTable/CameraTable";
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -18,7 +18,7 @@ function App() {
       setLoading(true);
       const response = await getCameras();
       setCameras(response.data.data);
-      setError(null); 
+      setError(null);
     } catch (error) {
       setError("Failed to fetch camera data");
       console.error("Error fetching camera data:", error);
@@ -28,9 +28,8 @@ function App() {
   };
 
   useEffect(() => {
-    fetchCameraData(); 
+    fetchCameraData();
   }, []);
-
 
   return (
     <div className="min-h-screen">
@@ -43,7 +42,7 @@ function App() {
       />
       {loading && <p>Loading camera data...</p>}
       {error && <p className="text-red-500">{error}</p>}
-      {!loading && !error && <CameraTable columns={Columns} data={cameras} />}
+      {!loading && !error && <CameraTable />}
     </div>
   );
 }

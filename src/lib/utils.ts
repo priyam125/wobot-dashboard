@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
+// import { Axios } from "node_modules/axios/index.d.cts";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -48,3 +49,16 @@ export const healthToColor = (status: "A" | "B" | "C" | "D" | "E" | "F") => {
   };
   return mapping[status] || "#000";
 };
+
+
+// export const deleteCamera = async (cameraId: string) => {
+//   try {
+//     await Axios.delete(`/cameras/${cameraId}`); // Replace with your API endpoint
+//     console.log(`Camera ${cameraId} deleted successfully.`);
+//   } catch (error) {
+//     console.error("Failed to delete camera:", error);
+//     // Handle errors appropriately (e.g., display an error message)
+//   }
+// };
+
+

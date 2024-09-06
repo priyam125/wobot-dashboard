@@ -12,7 +12,7 @@ export const getCameras = async () => Axios.get("/fetch/cameras");
 
 
 // Utility function to update camera status
-export const updateCameraStatus = async (id: string, status: "Active" | "Inactive") => {
+export const updateCameraStatus = async (id: number, status: "Active" | "Inactive") => {
     try {
       const response = await Axios.put("/update/camera/status", {
         id,
