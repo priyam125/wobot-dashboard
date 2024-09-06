@@ -1,24 +1,24 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getCameras } from "./axios/axios"; // Import the getCameras function
 import { CameraTable } from "./components/shared/CameraTable/data-table";
 import { Columns } from "./components/shared/CameraTable/columns";
-import { camerasState } from "./recoil/store";
-import { useRecoilState } from "recoil";
-import { Camera } from "./types/camera";
+import { CameraContextType } from "./types/camera";
+import { CameraContext } from "./context/cameraContext";
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [cameraData, setCameraData] = useRecoilState<Camera[]>(camerasState);
+  const { cameras, setCameras } = React.useContext(
+    CameraContext
+  ) as CameraContextType;
 
   const fetchCameraData = async () => {
     try {
       setLoading(true);
       const response = await getCameras();
-      setCameraData(response.data.data);
-      setError(null); // Clear any previous errors
+      setCameras(response.data.data);
+      setError(null); 
     } catch (error) {
       setError("Failed to fetch camera data");
       console.error("Error fetching camera data:", error);
@@ -28,10 +28,9 @@ function App() {
   };
 
   useEffect(() => {
-    fetchCameraData(); // Fetch data when the component mounts
+    fetchCameraData(); 
   }, []);
 
-  console.log(cameraData);
 
   return (
     <div className="min-h-screen">
@@ -44,9 +43,7 @@ function App() {
       />
       {loading && <p>Loading camera data...</p>}
       {error && <p className="text-red-500">{error}</p>}
-      {!loading && !error && (
-        <CameraTable columns={Columns} data={cameraData} />
-      )}
+      {!loading && !error && <CameraTable columns={Columns} data={cameras} />}
     </div>
   );
 }

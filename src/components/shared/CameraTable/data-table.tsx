@@ -7,7 +7,6 @@ import {
   ColumnFiltersState,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-// import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import {
@@ -18,10 +17,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DataTablePagination } from "./CameraTablePagination";
-import { useRecoilValue } from "recoil";
-import { camerasState } from "@/recoil/store";
 
 interface CameraTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -47,12 +44,6 @@ export function CameraTable<TData, TValue>({
       columnFilters,
       rowSelection,
     },
-  });
-
-  const tableData = useRecoilValue(camerasState);
-
-  useEffect(() => {
-    console.log(tableData);
   });
 
   return (

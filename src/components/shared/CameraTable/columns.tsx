@@ -12,21 +12,18 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-// import { CloudIcon } from "lucide-react";
 import { RiCloudLine } from "react-icons/ri";
 import { TbDeviceHeartMonitor } from "react-icons/tb";
 import CustomCell from "../CustomCell";
 import { Axios } from "@/axios/axios";
 import { healthToColor, healthToPercentage } from "@/lib/utils";
 import { Camera } from "@/types/camera";
-// import { useUpdateCameraStatus } from "@/hooks/useUpdateRecoil";
 
 
 const onUpdate = async (data: Camera) => {
   const newStatus = data.status === "Active" ? "Inactive" : "Active"; // Toggle the status
 
   try {
-    // Make the API call to update the camera status
     await Axios.put("/update/camera/status", {
       id: data.id,
       status: newStatus,
@@ -34,12 +31,7 @@ const onUpdate = async (data: Camera) => {
 
     location.reload();
 
-    // Successfully updated status; update the local data
     console.log(`Camera ${data._id} status updated to ${newStatus}`);
-
-    // Optional: Refresh or update the UI state to reflect the change
-    // This part depends on how your state management is set up
-    // For example, if you're using React state or context, you would trigger a re-fetch or update the state here
   } catch (error) {
     console.error("Failed to update status:", error);
   }
@@ -89,10 +81,8 @@ export const Columns: ColumnDef<Camera>[] = [
       return (
         <div className="flex items-center justify-center space-x-4">
           <div className="flex items-center gap-1">
-            {/* Icon for cloud status */}
             <RiCloudLine className={`h-6 w-6 text-[${healthToColor(cloud)}]`} />
 
-            {/* Circular progress bar for cloud health */}
             <div style={{ width: 30, height: 30 }}>
               <CircularProgressbar
                 value={healthToPercentage(cloud)}
@@ -106,12 +96,10 @@ export const Columns: ColumnDef<Camera>[] = [
             </div>
           </div>
           <div className="flex items-center gap-1">
-            {/* Icon for Device status */}
             <TbDeviceHeartMonitor
               className={`h-6 w-6 text-[${healthToColor(device)}]`}
             />
 
-            {/* Circular progress bar for device health */}
             <div style={{ width: 30, height: 30 }}>
               <CircularProgressbar
                 value={healthToPercentage(device)}
