@@ -57,6 +57,10 @@ export default function CameraTable() {
 
   const [tableData, setTableData] = React.useState<Camera[]>(cameras);
 
+  const uniqueLocations = Array.from(
+    new Set(tableData.map((camera) => camera.location))
+  );
+
   const toggleStatus = (_id: string, id: number, status: string) => {
     updateCameraStatus(id, status === "Active" ? "Inactive" : "Active");
 
@@ -252,7 +256,7 @@ export default function CameraTable() {
         />
       </div>
       <div className="bg-white rounded-sm">
-        <div className="flex items-center py-4">
+        <div className="flex items-center py-4 space-x-4">
           <select
             value={
               (table.getColumn("status")?.getFilterValue() as string) ?? ""
@@ -267,9 +271,31 @@ export default function CameraTable() {
             }}
             className="bg-white p-2 outline-none border-gray-300 border rounded-md w-[250px] max-w-md md:ml-4"
           >
-            <option value="">All</option>
+            <option value="" disabled>
+              Status
+            </option>
+            <option value="">All</option> {/* Shows all statuses */}
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
+          </select>
+          <select
+            value={
+              (table.getColumn("location")?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              table.getColumn("location")?.setFilterValue(event.target.value)
+            }
+            className="bg-white p-2 outline-none border-gray-300 border rounded-md w-[250px] max-w-md"
+          >
+            <option value="" disabled>
+              Location
+            </option>
+            <option value="">All Locations</option>
+            {uniqueLocations.map((location) => (
+              <option key={location} value={location}>
+                {location}
+              </option>
+            ))}
           </select>
         </div>
         <div className="rounded-md">
